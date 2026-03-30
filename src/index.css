@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ランダム波紋エフェクト
+   --dx, --dy : ドリフト先（スクリーン座標 px）
+   --scale    : 最終拡大率
+*/
+@keyframes ripple-random {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(var(--scale));
+    opacity: 0;
+  }
+}
