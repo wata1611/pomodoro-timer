@@ -119,14 +119,18 @@ export default function App() {
     if (!isRunning) return;
 
     const id = setInterval(() => {
+      let shouldAdvance = false;
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(id);
-          advancePhase();
+          shouldAdvance = true;
           return 0;
         }
         return prev - 1;
       });
+      if (shouldAdvance) {
+        clearInterval(id);
+        advancePhase();
+      }
     }, 1000);
 
     return () => clearInterval(id);
