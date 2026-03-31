@@ -31,6 +31,7 @@ export default function App() {
   const [phase, setPhase] = useState(PHASES.WORK);
   const [timeLeft, setTimeLeft] = useState(DURATIONS[PHASES.WORK]);
   const [isRunning, setIsRunning] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
   const [pomodoroCount, setPomodoroCount] = useState(0);
 
   // 長休憩時間 (15 or 30 分)
@@ -103,6 +104,7 @@ export default function App() {
       setTimeLeft(nextDuration);
       // 常に自動スタート
       setIsRunning(true);
+      setTimerKey((k) => k + 1);
     } else {
       // 休憩完了 → 作業へ
       playBreakComplete();
@@ -111,6 +113,7 @@ export default function App() {
       setTimeLeft(DURATIONS[PHASES.WORK]);
       // 常に自動スタート
       setIsRunning(true);
+      setTimerKey((k) => k + 1);
     }
   }, []);
 
@@ -134,7 +137,7 @@ export default function App() {
     }, 1000);
 
     return () => clearInterval(id);
-  }, [isRunning, advancePhase]);
+  }, [isRunning, advancePhase, timerKey]);
 
   const handleStartPause = () => {
     resumeAudioContext();
